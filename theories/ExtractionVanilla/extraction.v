@@ -116,7 +116,6 @@ Separate Extraction
          Compiler.pipeline.make_opts
          Compiler.pipeline.compile
          Glue.glue.generate_glue
-         Glue.ffi.generate_ffi
          cps.M.elements
          Compiler.pipeline.show_IR.
 

@@ -176,7 +176,6 @@ MonadExc
 Monad_utils
 ExceptionMonad
 Expression
-RandyPrelude
 Classes2
 
 OrdersFacts

@@ -44,11 +44,6 @@ VERNAC COMMAND EXTEND CertiCoqCCompile CLASSIFIED AS QUERY
     let opts = make_options l cs (get_name gr) in
     Certicoqc.show_ir opts gr
   }
-| [ "CertiCoqC" "FFI" vanilla_ffiargs_list(l) global(gr) ] -> {
-    let gr = Nametab.global gr in
-    let opts = make_options l [] "" in
-    Certicoqc.ffi_command opts gr
-  }
 | [ "CertiCoqC" "Generate" "Glue" vanilla_glueargs_list(l) "[" global_list_sep(grs, ",") "]" ] -> {
     let grs = List.map Nametab.global grs in
     let opts = make_options l [] "" in

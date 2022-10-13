@@ -174,7 +174,6 @@ MonadExc
 Monad_utils
 ExceptionMonad
 Expression
-RandyPrelude
 Classes2
 
 OrdersFacts
@@ -255,7 +254,6 @@ Toplevel2
 Toplevel3
 Glue_utils
 Glue
-Ffi
 OptionMonad
 Pipeline
 Plugin_utils

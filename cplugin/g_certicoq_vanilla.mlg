@@ -34,11 +34,6 @@ VERNAC ARGUMENT EXTEND vanilla_extract_cnst
 END
 
 
-VERNAC ARGUMENT EXTEND vanilla_ffiargs
-| [ "-prefix" string(s) ] -> { PREFIX(s) }
-| [ vanilla_cargs(c) ] -> { c }
-END
-
 VERNAC ARGUMENT EXTEND vanilla_glueargs
 | [ "-cps" ] -> { CPS }
 | [ "-debug" ] -> { DEBUG }
@@ -82,11 +77,6 @@ VERNAC COMMAND EXTEND CertiCoq_Compile CLASSIFIED AS QUERY
     let gr = Nametab.global gr in
     let opts = Certicoq.make_options l cs (get_name gr) in
     Certicoq.show_ir opts gr
-  }
-| [ "CertiCoq" "FFI" vanilla_ffiargs_list(l) global(gr) ] -> {
-    let gr = Nametab.global gr in
-    let opts = Certicoq.make_options l [] "" in
-    Certicoq.ffi_command opts gr
   }
 | [ "CertiCoq" "Generate" "Glue" vanilla_glueargs_list(l) "[" global_list_sep(grs, ",") "]" ] -> {
     let grs = List.map Nametab.global grs in

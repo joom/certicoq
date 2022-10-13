@@ -5,7 +5,6 @@ Require Import Common.Common Common.compM Common.Pipeline_utils.
 Require Import List.
 Require Import maps_util.
 Require Import Glue.glue.
-Require Import Glue.ffi.
 Require Import ExtLib.Structures.Monad.
 Require Import MetaCoq.Template.BasicAst.
 From MetaCoq.Template Require Import MCString.

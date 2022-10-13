@@ -128,7 +128,6 @@ Codegen/toplevel.v
 # Glue
 Glue/glue_utils.v
 Glue/glue.v
-Glue/ffi.v
 
 # Runtime
 # Runtime/runtime.v

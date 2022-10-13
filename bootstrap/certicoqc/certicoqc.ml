@@ -18,7 +18,6 @@ module MLCompiler : Certicoq.CompilerInterface with
     PrintClight.print_dest_names_imports prog (Cps.M.elements names) dest import
 
   let generate_glue = Glue.generate_glue
-  let generate_ffi = Ffi.generate_ffi
 end
 
 module CCompile = Certicoq.CompileFunctor (MLCompiler)

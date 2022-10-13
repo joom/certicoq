@@ -190,9 +190,6 @@ module type CompilerInterface = sig
   val generate_glue : Pipeline_utils.coq_Options -> Ast0.Env.global_declarations -> 
     (((name_env * Clight.program) * Clight.program) * Bytestring.String.t list) CompM.error
   
-  val generate_ffi :
-    Pipeline_utils.coq_Options -> Ast0.Env.program -> (((name_env * Clight.program) * Clight.program) * Bytestring.String.t list) CompM.error
-  
 end
 
 module MLCompiler : CompilerInterface with 
@@ -204,7 +201,6 @@ module MLCompiler : CompilerInterface with
     PrintClight.print_dest_names_imports prog (Cps.M.elements names) dest import
 
   let generate_glue = Glue.generate_glue
-  let generate_ffi = Ffi.generate_ffi
 end
 
 
@@ -413,30 +409,6 @@ module CompileFunctor (CI : CompilerInterface) = struct
     let time = (Unix.gettimeofday() -. time) in
     debug_msg debug (Printf.sprintf "Finished quoting in %f s.." time);
     (term, name)
-
-  let ffi_command opts gr =
-    let (term, name) = quote_ind opts gr in
-    let debug = opts.debug in
-    let options = make_pipeline_options opts in
-
-    let time = Unix.gettimeofday() in
-    (match CI.generate_ffi options (Obj.magic term) with
-    | CompM.Ret (((nenv, header), prg), logs) ->
-      let time = (Unix.gettimeofday() -. time) in
-      debug_msg debug (Printf.sprintf "Generated FFI glue code in %f s.." time);
-      (match logs with [] -> () | _ ->
-        debug_msg debug (Printf.sprintf "Logs:\n%s" (String.concat "\n" (List.map string_of_bytestring logs))));
-      let time = Unix.gettimeofday() in
-      let suff = opts.ext in
-      let cstr = ("ffi." ^ name ^ suff ^ ".c") in
-      let hstr = ("ffi." ^ name ^ suff ^ ".h") in
-      CI.printProg prg nenv cstr [];
-      CI.printProg header nenv hstr [];
-
-      let time = (Unix.gettimeofday() -. time) in
-      debug_msg debug (Printf.sprintf "Printed FFI glue code to file in %f s.." time)
-    | CompM.Err s ->
-      CErrors.user_err ~hdr:"ffi-glue-code" (str "Could not generate FFI glue code: " ++ pr_string s))
 
   let glue_command opts grs =
     let terms = grs |> List.rev

@@ -34,12 +34,6 @@ VERNAC ARGUMENT EXTEND extract_cnst
 | [ reference(gr) "=>" string(str) "with" "tinfo" ] -> { (extract_constant (Option.get (Constrintern.locate_reference gr)) str, true) }
 END
 
-
-VERNAC ARGUMENT EXTEND ffiargs
-| [ "-prefix" string(s) ] -> { PREFIX(s) }
-| [ cargs(c) ] -> { c }
-END
-
 VERNAC ARGUMENT EXTEND glueargs
 | [ "-cps" ] -> { CPS }
 | [ "-debug" ] -> { DEBUG }
@@ -83,11 +77,6 @@ VERNAC COMMAND EXTEND CertiCoq_Compile CLASSIFIED AS QUERY
     let gr = Nametab.global gr in
     let opts = Certicoq.make_options l cs (get_name gr) in
     Certicoq.show_ir opts gr
-  }
-| [ "CertiCoq" "FFI" ffiargs_list(l) global(gr) ] -> {
-    let gr = Nametab.global gr in
-    let opts = Certicoq.make_options l [] "" in
-    Certicoq.ffi_command opts gr
   }
 | [ "CertiCoq" "Generate" "Glue" glueargs_list(l) "[" global_list_sep(grs, ",") "]" ] -> {
     let grs = List.map Nametab.global grs in

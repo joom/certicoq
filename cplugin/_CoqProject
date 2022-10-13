@@ -225,8 +225,6 @@ extraction/expression.ml
 extraction/expression.mli
 extraction/extract.ml
 extraction/extract.mli
-extraction/ffi.ml
-extraction/ffi.mli
 extraction/floatOps.ml
 extraction/floatOps.mli
 extraction/floats.ml
@@ -390,8 +388,6 @@ extraction/prototype.ml
 extraction/prototype.mli
 extraction/proto_util.ml
 extraction/proto_util.mli
-extraction/randyPrelude.ml
-extraction/randyPrelude.mli
 extraction/rename.ml
 extraction/rename.mli
 extraction/rewriting.ml
